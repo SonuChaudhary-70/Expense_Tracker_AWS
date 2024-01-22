@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bootstrap Pagination</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Premium user Section and its features starts here -->
+    <span class="m-0 p-0 d-flex mt-2">
+        <h5 id="message" class="d-none">You are a premium user</h5>
+        <button class="btn btn-dark ms-2" id="buy_premium">Buy Premium</button>
+        <button class="btn btn-secondary ms-2 d-none" id="leaderBoard">Show Leaderboard</button>
+        <button class="btn btn-secondary ms-2 d-none" id="generateReport">Download Report</button>
+    </span>
+    <!-- Premium user Section and its features ends here -->
+
+    <div class="container-fluid mt-3 p-0">
+        <div class="row d-flex justify-content-center mx-0">
+            <div class="col-lg-8 col-md-10 col-sm-12 bg-dark rounded border border-2 border-dark main">
+                <form class="p-2 needs-validation" id="form" novalidate>
+                    <!-- <span id="error" style="display:none"></span> -->
+                    <div class=" bg-danger mb-1 px-1 d-none rounded text-light fs-5" id="errMsg"></div>
+                    <div class="mb-3 position-relative form-outline">
+                        <label for="amount" class="form-label text-light">Amount :</label>
+                        <input type="number" class="form-control inp" id="amount" required>
+                        <div class="invalid-feedback" id="ampErr">
+                            Please provide a valid amount.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label text-light ls-widest">Description
+                            :</label>
+                        <input type="text" class="form-control inp" id="description" required>
+                        <div class="invalid-feedback" id="descErr">
+                            Please provide a valid description.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expense-category" class="form-label text-light">Category :</label>
+                        <select name="Expense Category" id="expense-category"
+                            class="inp rounded rounded-2 p-1 py-2 w-100" required>
+                            <option value="">Please choose an option</option>
+                            <option value="Movie">Movie</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Food">Food</option>
+                            <option value="Kirana">Kirana</option>
+                            <option value="Outing">Outing</option>
+                        </select>
+                        <div class="invalid-feedback" id="categoryErr">
+                            Please provide a valid category.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expense-date" class="form-label text-light">Date :</label>
+                        <input type="date" id="expense-date" required>
+                        <div class="invalid-feedback" id="categoryErr">
+                            Please select expense date.
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-warning "
+                            style="opacity: 1;letter-spacing: 2px; font-weight: 500" value="submit" id="add">ADD
+                            EXPENSE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Add Expense Detail Section ends here -->
+
+        <!-- Expense Table Section Start here -->
+        <div class="row my-4 d-flex justify-content-center mx-0">
+            <div class="col-lg-8 col-md-10 col-sm-12  border border-2 rounded">
+                <div class="table-responsive">
+                    <!-- Expense Table starts here -->
+                    <table class="table table-light table-hover rounded rounded-4">
+                        <!-- table description/info starts here -->
+                        <div class="d-flex justify-content-between">
+                            <h3 class="text-center fst-italic pt-3 text-black">
+                                Expense Table
+                            </h3>
+                        </div>
+                        <!-- table description/info ends here -->
+
+                        <!-- Table Header Starts here -->
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <!-- Table Header Ends here -->
+
+                        <!-- table body start here -->
+                        <tbody id="expTabBody">
+                        </tbody>
+                    </table>
+                    <!-- Expense Table Ends here -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Expense Table Section Ends here -->
+
+        <!-- Leaderboard Section Starts Here  -->
+        <div class="row bg-dange my-4 d-none justify-content-center mx-0">
+            <div class="col-lg-8 col-md-10 col-sm-12  border border-2 rounded">
+                <!-- Leaderboard Table starts here -->
+                <div class="table-responsive">
+                    <table class="table table-light table-hover rounded rounded-4">
+                        <!-- table description/info starts here -->
+                        <div class="d-flex justify-content-between">
+                            <h3 class="text-center fst-italic pt-3 text-black">
+                                Leaderboard
+                            </h3>
+                        </div>
+                        <!-- table description/info ends here -->
+
+                        <!-- Table Header Starts here -->
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Total Expense</th>
+                            </tr>
+                        </thead>
+                        <!-- Table Header Ends here -->
+
+                        <!-- table body start here -->
+                        <tbody id="leaderTabBody">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Leaderboard Table Ends here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>
+
+<!-- pagination -->
+<div class="text-gray-50 text-xl">Show&nbsp;<button id="dropdownDefaultButton" data-dropdown-toggle="limitExpDropdown" data-dropdown-trigger="click"
+    class="text-gray-900 bg-gray-50  focus:ring-2 focus:outline-none hover:bg-blue-200 focus:ring-blue-400 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="button">5<svg class="w-2.5 h-2.5 ms-2" aria-hidden="false"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="2" d="m1 1 4 4 4-4" />
+    </svg>
+</button>&nbsp;Expenses
+</div>
+
+<!-- Dropdown menu -->
+<div id="limitExpDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+        <li>
+            <a href="#" class="block px-3 py-2 hover:bg-blue-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" value="10">10</a>
+        </li>
+        <li>
+            <a href="#" class="block px-3 py-2 hover:bg-blue-200  hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" value="15">15</a>
+        </li>
+        <li>
+            <a href="#" class="block px-3 py-2 hover:bg-blue-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" value="20">20</a>
+        </li>
+    </ul>
+</div>
