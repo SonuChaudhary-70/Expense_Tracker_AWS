@@ -49,15 +49,14 @@ app.use(express.static('public'))
 app.use('/', homePageRoutes)
 app.use('/user', userRoutes)
 app.use('/password', passwordRoutes)
+
 // adding external middleware which runs before going to any below routes
 app.use('/expense', userAuthentication.authenticate, expenseRoutes)
 app.use('/purchase', userAuthentication.authenticate, purchaseRoutes)
 app.use('/premium', userAuthentication.authenticate, premiumFeatureRoutes)
 
 // server creation and connecting db with server
-sequelize
-    // .sync({ force: true })
-    .sync()
+sequelize.sync()
     .then(() => {
         app.listen(process.env.PORT)
         console.log('\nserver is listening on port :', process.env.PORT);
