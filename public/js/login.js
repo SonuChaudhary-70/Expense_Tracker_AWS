@@ -23,7 +23,7 @@ loginForm.addEventListener('submit', async (e) => {
             if (response.status === 200) {
                 localStorage.setItem('token', JSON.stringify(response.data.token))
                 alert('user logged in successfully')
-                window.location.href = 'http://localhost:8001/homePage'
+                window.location.href = 'http://localhost:8001/main'
             }
         }
         catch (err) {

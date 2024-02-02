@@ -31,7 +31,7 @@ signUp_Form.addEventListener('submit', async (e) => {
             // localStorage.setItem('token', JSON.stringify(response.data.token))
             if (response.status == 200) {
                 alert('User signed up successfully.\nNow please login with same credentials')
-                window.location.href = 'http://localhost:8001/'
+                window.location.href = 'http://localhost:8001/home'
             }
         }
         catch (err) {

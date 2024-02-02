@@ -46,7 +46,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'))
 
 // user routes for sign-up and login
-app.use('/', homePageRoutes)
+app.use(homePageRoutes)
 app.use('/user', userRoutes)
 app.use('/password', passwordRoutes)
 
