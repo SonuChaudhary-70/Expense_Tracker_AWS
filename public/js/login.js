@@ -16,11 +16,12 @@ loginForm.addEventListener('submit', async (e) => {
         email: loginEmail.value,
         password: loginPassword.value
     };
-    if(loginForm.checkValidity()){
+    if (loginForm.checkValidity()) {
         console.log('worked fine');
         try {
             // let response = await axios.post(`http://localhost:8001/user/login`, credentials);
             let response = await axios.post(`http://35.154.185.81/user/login`, credentials);
+            console.log('login response :', response);
             if (response.status === 200) {
                 localStorage.setItem('token', JSON.stringify(response.data.token))
                 alert('user logged in successfully')
