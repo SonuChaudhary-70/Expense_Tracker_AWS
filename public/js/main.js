@@ -19,8 +19,8 @@ expenseBody.addEventListener('click', (e) => {
 window.addEventListener('load', async () => {
     const page = 1
     const limit = 5
-    // let response = await axios.get('http://localhost:8001/expense/get-expenses', { headers: { 'Authorization': token } });
-    let response = await axios.get(`http://localhost:8001/expense/limited-expense?page=${page}&limit=${limit}`, { headers: { 'Authorization': token } });
+    // let response = await axios.get('/expense/get-expenses', { headers: { 'Authorization': token } });
+    let response = await axios.get(`/expense/limited-expense?page=${page}&limit=${limit}`, { headers: { 'Authorization': token } });
     try {
         showExpense(response.data.expenses);
         showBarChart(response.data.expenses);
@@ -56,7 +56,7 @@ expForm.addEventListener('submit', async (e) => {
             date: exp_date.value
         }
         try {
-            let response = await axios.post('http://localhost:8001/expense/add-expense', expense, { headers: { 'Authorization': token } });
+            let response = await axios.post('/expense/add-expense', expense, { headers: { 'Authorization': token } });
             console.log('response added :', response);
         }
         catch (err) {
@@ -109,7 +109,7 @@ async function editData(event) {
         let closeBtn = document.getElementById('close_expense_modal')
         $("#add_expense_modal").show();
         // get expense data from DB and fill all input field with the expense
-        let savedExp = await axios.get(`http://localhost:8001/expense/get-expense/${event.target.id}`, { headers: { 'Authorization': token } });
+        let savedExp = await axios.get(`/expense/get-expense/${event.target.id}`, { headers: { 'Authorization': token } });
         try {
             if (savedExp.data.success) {
                 // fill the expense detail in input field with stored expense in db
@@ -155,7 +155,7 @@ async function saveData(e,btn) {
             date: exp_date.value
         }
         console.log('updated exp :', updatedExpense);
-        // await axios.put(`http://localhost:8001/expense/update-expense/${e.target.id}`, updatedExpense, { headers: { 'Authorization': token } });
+        // await axios.put(`/expense/update-expense/${e.target.id}`, updatedExpense, { headers: { 'Authorization': token } });
         // change save button to edit button after update the expense and reload the page
         $("#add_expense_modal").hide();
         e.target.innerHTML = 'Edit'
@@ -173,7 +173,7 @@ async function deleteData(e) {
     if (e.target.classList.contains('delete')) {
         // delete expense from db and reload the page
         try {
-            await axios.delete(`http://localhost:8001/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
+            await axios.delete(`/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
         }
         catch (err) {
             console.log('Error while deleting expense :', err);
@@ -205,7 +205,7 @@ leaderBoardBtn.addEventListener('click', showLeaderBoard);
 
 
 async function showLeaderBoard() {
-    let allUserTotalExpense = await axios.get('http://localhost:8001/premium/update-leaderBoard', { headers: { 'Authorization': token } });
+    let allUserTotalExpense = await axios.get('/premium/update-leaderBoard', { headers: { 'Authorization': token } });
     allUserTotalExpense.data.totalAmount.forEach((exp, index) => {
         const tr = document.createElement('tr');
         tr.className = 'bg-gray-200 border-b hover:bg-blue-200'
@@ -221,13 +221,13 @@ async function showLeaderBoard() {
 
 async function buyPremium(e) {
     try {
-        let response = await axios.get(`http://localhost:8001/purchase/purchase-premium-membership`, { headers: { 'Authorization': token } });
+        let response = await axios.get(`/purchase/purchase-premium-membership`, { headers: { 'Authorization': token } });
         if (response.status === 201) {
             let options = {
                 'key': response.data.keyId,
                 'order_id': response.data.order_detail.id,
                 'handler': async (response) => {
-                    let orderComp = await axios.post('http://localhost:8001/purchase/update-transaction-status', {
+                    let orderComp = await axios.post('/purchase/update-transaction-status', {
                         order_id: options.order_id,
                         payment_id: response.razorpay_payment_id,
                         success: true,
@@ -245,7 +245,7 @@ async function buyPremium(e) {
             e.preventDefault();
 
             rzp1.on('payment.failed', async (response) => {
-                let orderFailed = await axios.post('http://localhost:8001/purchase/update-transaction-status', {
+                let orderFailed = await axios.post('/purchase/update-transaction-status', {
                     order_id: response.error.metadata.order_id,
                     payment_id: response.error.metadata.payment_id,
                     success: false,
@@ -274,7 +274,7 @@ function parseJwt(token) {
 // generate and download the expense report
 generateReport.addEventListener('click', async () => {
     try {
-        let response = await axios.get('http://localhost:8001/premium/report/download', { headers: { 'Authorization': token } });
+        let response = await axios.get('/premium/report/download', { headers: { 'Authorization': token } });
         // make anchor tag and assign its href to file url that we get from backend
         console.log(response);
         let a = document.createElement('a');
@@ -330,7 +330,7 @@ async function updatePageNumber({ expense, hasPrevPage, hasNextPage, nextPage, p
 async function getExpense(page, limit) {
     limit = limit || 5
     expenseBody.innerHTML = ''
-    let response = await axios.get(`http://localhost:8001/expense/limited-expense?page=${page}&limit=${limit}`, { headers: { 'Authorization': token } });
+    let response = await axios.get(`/expense/limited-expense?page=${page}&limit=${limit}`, { headers: { 'Authorization': token } });
     showExpense(response.data.expenses);
     updatePageNumber(response.data.expenses)
 }

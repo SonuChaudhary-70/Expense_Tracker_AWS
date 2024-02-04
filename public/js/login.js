@@ -19,13 +19,13 @@ loginForm.addEventListener('submit', async (e) => {
     if (loginForm.checkValidity()) {
         console.log('worked fine');
         try {
-            // let response = await axios.post(`http://localhost:8001/user/login`, credentials);
+            // let response = await axios.post(`/user/login`, credentials);
             let response = await axios.post(`http://35.154.185.81/user/login`, credentials);
             console.log('login response :', response);
             if (response.status === 200) {
                 localStorage.setItem('token', JSON.stringify(response.data.token))
                 alert('user logged in successfully')
-                // window.location.href = 'http://localhost:8001/main'
+                // window.location.href = '/main'
                 window.location.href = 'http://35.154.185.81/main'
             }
         }
@@ -55,7 +55,7 @@ resetPasswordBtn.addEventListener('click', async (e) => {
         showError(forgotPassEmailErr, 'Please enter valid email address')
     }
     const token = JSON.parse(localStorage.getItem('token'));
-    let response = await axios.post('http://localhost:8001/password/forgot-password', { email: resetPasswordEmail.value }, { headers: { 'Authorization': token } });
+    let response = await axios.post('/password/forgot-password', { email: resetPasswordEmail.value }, { headers: { 'Authorization': token } });
     if (response.data.success) {
         alert(`Reset password email sent.You should soon receive an email allowing you to reset your password. Please make sure to check your spam and trash if you can't find the email.`)
     } else {

@@ -27,11 +27,11 @@ signUp_Form.addEventListener('submit', async (e) => {
             password: signUp_Form[2].value
         }
         try {
-            let response = await axios.post('http://localhost:8001/user/sign-up', userDetails);
+            let response = await axios.post('/user/sign-up', userDetails);
             // localStorage.setItem('token', JSON.stringify(response.data.token))
             if (response.status == 200) {
                 alert('User signed up successfully.\nNow please login with same credentials')
-                window.location.href = 'http://localhost:8001/home'
+                window.location.href = '/home'
             }
         }
         catch (err) {
@@ -51,7 +51,7 @@ function showError(element, errMsg) {
 document.getElementById('signUp_email')
     .addEventListener('change', async function (e) {
         try {
-            let response = await axios.post(`http://localhost:8001/user/${e.target.value}`);
+            let response = await axios.post(`/user/${e.target.value}`);
             if (response.status == 200) {
                 signUp_Form[1].style.backgroundImage = 'none'
                 showError(userExistErr, 'User with this email already exists')

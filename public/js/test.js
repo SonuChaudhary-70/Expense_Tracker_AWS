@@ -10,7 +10,7 @@
 //     e.preventDefault();
 //     currPage = curr.innerHTML
 //     console.log(' page before :', currPage);
-//     let response = await axios.get(`http://localhost:8001/expense/limited-expense?page=${currPage}`, { headers: { 'Authorization': token } });
+//     let response = await axios.get(`/expense/limited-expense?page=${currPage}`, { headers: { 'Authorization': token } });
 //     // showExpense(response.data)
 
 //     // PREVIOUS page condition
@@ -48,8 +48,8 @@
 // window reload section starts here
 window.addEventListener('load', async () => {
     const page = 1
-    // let response = await axios.get('http://localhost:8001/expense/get-expenses', { headers: { 'Authorization': token } });
-    let response = await axios.get(`http://localhost:8001/expense/limited-expense?page=${page}`, { headers: { 'Authorization': token } });
+    // let response = await axios.get('/expense/get-expenses', { headers: { 'Authorization': token } });
+    let response = await axios.get(`/expense/limited-expense?page=${page}`, { headers: { 'Authorization': token } });
     try {
         showExpense(response.data.expenses.expense);
         updatePageNumber(response.data.expenses)
@@ -98,7 +98,7 @@ async function updatePageNumber({ expense, hasPrevPage, hasNextPage, nextPage, p
 async function getExpense(page) {
     expenseBody.innerHTML = ''
     console.log(page);
-    let response = await axios.get(`http://localhost:8001/expense/limited-expense?page=${page}`, { headers: { 'Authorization': token } });
+    let response = await axios.get(`/expense/limited-expense?page=${page}`, { headers: { 'Authorization': token } });
     // console.log(expenseBody.innerHTML);
     console.log('expenses :', response.data.expenses);
     showExpense(response.data.expenses.expense);
