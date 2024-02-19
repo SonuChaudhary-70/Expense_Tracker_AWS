@@ -39,7 +39,7 @@ exports.forgotPassword = async (req, res) => {
         <div class="card-body">
             <h4 class="card-title">we have received a reset password request</h4>
             <p class="card-text">You can reset your password by clicking the link given below.</p>
-            <a href="http://localhost:8001/password/reset-password/${id}" class="btn btn-primary" data-mdb-ripple-init>Change my password</a>
+            <a href="http://35.154.185.81/password/reset-password/${id}" class="btn btn-primary" data-mdb-ripple-init>Change my password</a>
         </div>
         </div>`
         };
@@ -64,7 +64,7 @@ exports.resetPassword = (req, res) => {
     if (activeForgotReq) {
         ForgotPasswordReq.update({ isActive: false }, { where: { id: uuid } })
         res.status(200).send(`
-                <form  method="get" action="http://localhost:8001/password/update-password/${uuid}" style="border:2px solid black; width:30rem; padding:10px 20px;">
+                <form  method="get" action="http://35.154.185.81/password/update-password/${uuid}" style="border:2px solid black; width:30rem; padding:10px 20px;">
                     <h3 class="">Enter your new password below</h3>
                     <div class="mb-3">
                         <label for="Password" class="form-label h6">New Password</label><br>
@@ -99,7 +99,7 @@ exports.updatePassword = async (req, res) => {
                 // res.status(200).json({ status: true, message: 'password changed' });
                 res.status(200).send(`
                 <h4>Your password has been reset.</h4>
-                <a href="http://localhost:8001/" class="btn btn-primary" data-mdb-ripple-init>Please click here to login</a>`);
+                <a href="http://35.154.185.81/home" class="btn btn-primary" data-mdb-ripple-init>Please click here to login</a>`);
             } else {
                 throw new Error('user does not exist')
             }
