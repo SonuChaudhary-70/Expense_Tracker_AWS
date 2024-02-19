@@ -80,7 +80,7 @@ exports.deleteExpense = async (req, res) => {
         let deletedExp = await Expense.destroy({ where: { id: Id, UserId: req.user.id } }, { transaction: t });
         console.log('delete expense :',deletedExp);
         await t.commit();
-        return res.status(200).json({ success: true, message: 'expense deleted successfully', deletedExp: deletedExp });
+        return res.status(200).json({ success: true, message: 'expense deleted successfully', deletedExp: deletedExp,id: Id, UserId: req.user.id  });
     }
     catch (err) {
         console.log('Error while deleting expense : ', err.message);
