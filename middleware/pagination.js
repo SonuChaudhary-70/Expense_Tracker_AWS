@@ -8,11 +8,8 @@ exports.pagination = async (req, res, next) => {
     let page = Number(+req.query.page || 1)
     let expense_per_page = Number(req.query.limit || 5)
     try {
-        // console.log('page number :', page);
-        // console.log('expense per page :',expense_per_page);
-        let totalExpense = await Expense.count();
-        // console.log('total expense :',totalExpense);
-        const limitedExp = await Expense.findAll({
+        let totalExpense = await req.user.countExpenses();
+        const limitedExp = await req.user.getExpenses({
             offset: (page - 1) * expense_per_page,//2*5
             limit: expense_per_page
         })

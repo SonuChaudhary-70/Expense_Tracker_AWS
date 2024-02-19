@@ -5,21 +5,22 @@ const paginationMiddleware = require('../middleware/pagination.js')
 
 
 // add-expense routes
-router.post('/add-expense', expenseController.addExpense);
+router.post('/add-expense',authenticationMiddleware.authenticate, expenseController.addExpense);
 
 // get all expense
-router.get('/get-expenses', expenseController.getAllExpenses);
+router.get('/get-expenses',authenticationMiddleware.authenticate, expenseController.getAllExpenses);
 
 // get expense by id
-router.get('/get-expense/:id', expenseController.getExpenseById);
+router.get('/get-expense/:id',authenticationMiddleware.authenticate, expenseController.getExpenseById);
 
-// get only 2 expense on per call
-router.get('/limited-expense', paginationMiddleware.pagination, expenseController.getLimitedExpense)
+
+// get only 5 expense on per call
+router.get('/limited-expense',authenticationMiddleware.authenticate, paginationMiddleware.pagination, expenseController.getLimitedExpense)
 
 // delete expense by id
-router.delete('/delete-expense/:id', expenseController.deleteExpense);
+router.delete('/delete-expense/:id',authenticationMiddleware.authenticate, expenseController.deleteExpense);
 
 // update expense by id
-router.put('/update-expense/:id', expenseController.updateExpense);
+router.put('/update-expense/:id',authenticationMiddleware.authenticate, expenseController.updateExpense);
 
 module.exports = router;
