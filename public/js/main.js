@@ -176,12 +176,13 @@ async function deleteData(e) {
         // delete expense from db and reload the page
         try {
             console.log('enter in delete :',e.target.id);
-            await axios.delete(`/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
+            let deletedExp = await axios.delete(`/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
+            console.log('deleted expense:', deletedExp);
         }
         catch (err) {
             console.log('Error while deleting expense :', err);
         }
-        window.location.reload()
+        // window.location.reload()
     }
 }
 // Add Expense section ENDS here (add expense to the backend)
