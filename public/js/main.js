@@ -10,6 +10,7 @@ const token = JSON.parse(localStorage.getItem('token'));
 
 // add event handlers for edit and delete expense data in expense table
 expenseBody.addEventListener('click', (e) => {
+    e.preventDefault();
     // optional chaining (?.) applied here
     console.log('event target:',e.target)
     if (e.target && e.target.classList.contains('editBtn')) editData(e)
@@ -174,17 +175,16 @@ async function deleteData(e) {
     if (e.target.classList.contains('delete')) {
         // delete expense from db and reload the page
         try {
-            console.log('enter in delete');
+            console.log('enter in delete :',e.target.id);
             await axios.delete(`/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
         }
         catch (err) {
             console.log('Error while deleting expense :', err);
-            // showError(errDiv, 'Some Network Issue')
         }
         window.location.reload()
     }
 }
-// Expense Add section ENDS here (add expense to the backend)
+// Add Expense section ENDS here (add expense to the backend)
 
 function showError(element, errMsg) {
     element.innerHTML = errMsg;
