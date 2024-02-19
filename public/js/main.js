@@ -174,6 +174,7 @@ async function deleteData(e) {
     if (e.target.classList.contains('delete')) {
         // delete expense from db and reload the page
         try {
+            console.log('enter in delete');
             await axios.delete(`/expense/delete-expense/${e.target.id}`, { headers: { 'Authorization': token } })
         }
         catch (err) {

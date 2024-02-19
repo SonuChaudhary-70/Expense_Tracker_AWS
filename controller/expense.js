@@ -75,8 +75,10 @@ exports.updateExpense = async (req, res) => {
 exports.deleteExpense = async (req, res) => {
     let Id = req.params.id
     const t = await Sequelize.transaction()
+    console.log('enter in delete expense route :');
     try {
         let deletedExp = await Expense.destroy({ where: { id: Id, UserId: req.user.id } }, { transaction: t });
+        console.log('delete expense :',deletedExp);
         await t.commit();
         return res.status(200).json({ success: true, message: 'expense deleted successfully', deletedExp: deletedExp });
     }
