@@ -11,8 +11,9 @@ const token = JSON.parse(localStorage.getItem('token'));
 // add event handlers for edit and delete expense data in expense table
 expenseBody.addEventListener('click', (e) => {
     // optional chaining (?.) applied here
-    if (e.target?.e.target.classList.contains('editBtn')) editData(e)
-    if (e.target?.e.target.classList.contains('deleteBtn')) deleteData(e)
+    console.log('event target:',e.target)
+    if (e.target && e.target.classList.contains('editBtn')) editData(e)
+    if(e.target && e.target.classList.contains('deleteBtn')) deleteData(e)
 });
 
 // window reload section starts here

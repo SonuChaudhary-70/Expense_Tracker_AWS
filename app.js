@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-// const cors = require('cors');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/dbConfig');
@@ -31,7 +30,6 @@ User.hasMany(ForgotPasswordReq);
 ForgotPasswordReq.belongsTo(User, { constraint: true, onDelete: "CASCADE" });
 
 // middleware which are used for all routes
-// app.use(cors());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(express.static('public'))
